@@ -1,0 +1,135 @@
+Okay, hello Cloud Gurus,
+and welcome to this lecture.
+This is a theoretical lecture on CloudFront.
+So, what is CloudFront?
+We have covered this off in a little bit of detail,
+but now we're going to deep dive on CloudFront.
+So CloudFront is a content delivery network, or CDN,
+and basically, a content delivery network
+is a system of distributed servers, or a network,
+that delivers web pages and other web content to a user
+based on the geographic locations of the user,
+the origin of the web page,
+and with a content delivery server.
+So, let's have a look at what a CDN looks like.
+So say we've got our website which is hosted in London,
+and we've got our users who are all around the world.
+And our users, when they go to our website,
+they're going to go directly to London
+and pull that content down.
+So that's what happens when you do not have a CDN enabled.
+Basically, if you have your web servers in London
+and you've got all your media files,
+so your images, your videos, etc.,
+every single individual has to go and, essentially,
+they're connecting into that server across the internet,
+and they're pulling those files down
+literally across oceans,
+and it can take time to load.
+So before we explore what CloudFront is and how it works,
+we need to understand some key terminology,
+and we're going to start with Edge Location.
+So I'm sure you know what an Edge Location is by now,
+but let's just explain it.
+So this is basically a location
+where content is going to be cached,
+and this is separate to an AWS region or availability zone.
+An origin is the origin of all the files
+that the CDN will distribute.
+So this could be an S3 bucket, an EC2 instance,
+an elastic load balancer, or even Route53,
+and in the next lecture we're going to go in and create,
+we're going to use an S3 bucket as our origin.
+And then finally, we have our distributions,
+and this is the name that's given to the CDN
+which consists of,
+essentially, it's a collection of Edge Locations.
+So we're going to create a distribution.
+We'll do that in the next lecture.
+So let's have a look at how CloudFront actually works.
+So now we've got our web server in London,
+we've got our users all over the world,
+and we've got our Edge Locations.
+Now, our first user will do a query to the Edge Location,
+and will say, "Hey, I want to watch this video.
+"Do you have a copy of this video?"
+If the Edge Location does not have a copy of that,
+what will happen is the Edge Location
+will download that video to the Edge Location,
+and it will be cached there.
+And it's going to be cached for the time to live,
+which is always in seconds,
+and we're going to look at how we can configure that
+in the next lecture.
+So basically it's going to be cached there
+let's say for 48 hours, or 72 hours.
+And what that means is if another user
+then queries that Edge Location for the same video,
+that video's already downloaded to the Edge Location,
+and that user will be able to download it a lot quicker,
+because you don't have to go all the way
+to London to get it.
+It could be cached in us-east-1,
+or it could be cached in South America,
+or in South Africa, etc., etc., etc.
+So that's CloudFront, and that's how it works.
+It can be used to deliver your entire website,
+including dynamic, static and streaming
+and interactive content
+using a global network of Edge Locations,
+and request for your content is automatically
+routed to the nearest Edge Location,
+so content is delivered with the best possible performance.
+So you get really good performance out of CloudFront.
+With CloudFront, you get two different
+types of distributions.
+You've got your web distributions.
+This is typically used for websites,
+and that's what we're going to do in the next lecture.
+And then you've also got your RTMP distributions.
+This is used for Adobe,
+and it's used for media streaming, essentially.
+So we will see that again in the next lecture.
+So what are my exam tips?
+Well, just remember what an Edge Location is.
+This is the location where content will be cached.
+This is separate to an AWS region or availability zone.
+Remember what an origin is.
+This is the origin of all the files
+that the CDN will distribute.
+This can either be an S3 bucket,
+or it could be an EC2 instance, or an elastic load balancer,
+or Route53.
+So just remember what that is.
+And then also remember that a distribution
+is the name that's given to the CDN,
+which is a collection of Edge Locations.
+And then a web distribution is typically used for websites,
+whereas RTMP is used for media streaming.
+And then finally, you should also remember
+that Edge Locations are not just read-only,
+you can write to them too,
+i.e. you can put objects to them,
+and we did that in the last lecture
+when we were using transfer acceleration.
+Objects are going to be cached for the time to live,
+the TTL value, and we'll look at
+how we can configure that in the next lecture.
+And then finally, you can clear cached objects,
+you can invalidate an object,
+but you are going to be charged if you do that,
+and that's a really important exam topic
+that you can invalidate cached content.
+So if you've uploaded something,
+and your users are still getting some old data
+and you've added new data, for example,
+you might have added a new video
+and they're still getting the old video,
+you can go in and clear those cached objects,
+but you are going to be charged.
+So it's called invalidating the cache.
+So that is it for this lecture.
+If you have any questions, please let me know.
+If not, feel free to move on to the next lecture,
+where we're going to create
+our very first CloudFront distribution.

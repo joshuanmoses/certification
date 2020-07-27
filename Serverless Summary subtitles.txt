@@ -1,0 +1,98 @@
+= [Ryan] Okay! Hello, Cloud Gurus,
+and welcome to this lecture.
+Well, congratulations!
+You are at the second last lecture in the entire course,
+and you've done really, really well,
+and you've gone through, in this section,
+you created your own serverless website
+using API gateway and using lambda.
+And then we've also gone on and created an Alexa skill.
+And don't worry if you couldn't
+get any of those labs to work.
+You really just need to understand what lambda is
+and what API gateway is at a high level.
+I definitely go back and watch the API lecture
+in the application section,
+just so you get a better grip on it,
+but in terms of what you need to know for this section
+of the course, and what you need to know for your exam,
+you need to remember the different types of architectures
+within the cloud.
+So, I like to call this "Cloud 1.0."
+This is the more traditional approach.
+This is where you've got your Elastic Load Balancer
+at the front end.
+You then got your EC2 instances,
+so these would be your web servers,
+and then there's storing data in a traditional database,
+like RDS.
+So, that's a very traditional architecture.
+Still is highly available, if you make it that way,
+and it can tolerate failure if you architect it correctly.
+But, it is limited in how much it can scale.
+Yes, you can have auto scaling groups,
+but what where you're really gonna start bottlenecking out
+is your RDS instances.
+And again, it really depends,
+if you are using Aurora,
+it probably won't bottleneck out as much as if you were
+just using a t2.micro with MySQL.
+But, it is not as scalable as serverless architecture.
+So, serverless architecture typically would consist
+of API gateway, lambda function, and then DynamoDB
+on the back end.
+And you are going to be given a whole bunch
+of scenario quizzes, and then you basically ask,
+"What is the best way to architect this,
+"from both a high availability point of view,
+"as well as a cost saving point of view."
+And, really, you should be going for
+the serverless architecture model.
+So, API gateway, lambda, DynamoDB.
+So, in terms of my exam tips for lambda,
+just remember that it scales out, not up automatically.
+So, if you have five triggers,
+let's say five people upload five different images
+to an S3 bucket,
+that's going to trigger five separate lambda functions
+at any given time.
+Lambda functions are independent,
+so one event equals one function.
+Remember that lambda is serverless.
+Know what services are serverless,
+so RDS is not serverless,
+with the exception of Aurora Serverless.
+Lambda functions can trigger other lambda functions,
+so one event can actually equal 10 functions,
+or 20 functions, or 50 functions,
+or even a million different functions,
+if functions are triggering other functions.
+Also remember that architectures
+can start getting extremely complicated.
+AWS X-ray allows you to debug what is happening
+inside your serverless application.
+And that's all you really need to know
+about X-ray for the exam.
+Just know what it is.
+And then lambda can do things globally,
+so you can use it to back up S3 buckets to other S3 buckets.
+You can configure your functions to run
+at a particular time of day, at a particular time of week,
+so, sort of like cron.
+You can do a whole bunch of things with lambda.
+So, lambda is a global service.
+And, really, go in there knowing your triggers,
+or even better, know what can't trigger lambda.
+So, that is it for this section of the course.
+In the next section, I'm gonna wish you best of luck
+and I'm gonna show you how you can book your exams.
+You guys have done really, really, really well.
+I hope you've had a lot of fun doing this course.
+I have had a lot of fun teaching it.
+Do remember that we are a third party training company,
+so if you see something in the exam
+that the course hasn't covered,
+please let us know and I'll update the course straight away.
+So, keep being awesome Cloud Gurus.
+I'll see you in the next section,
+and best of luck on your exam.

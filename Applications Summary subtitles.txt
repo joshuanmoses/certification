@@ -1,0 +1,221 @@
+Okay, hello Cloud Gurus
+and welcome to this lecture.
+This is the Application Summary lecture.
+So, congratulations!
+You've done really really well.
+You've got just one more section left.
+And then you'll be able to go ahead and book your exams
+and hopefully pass on the first attempt.
+The next section of the course is super fun as well.
+'Cause we're gonna do a whole bunch of serverless stuff.
+So, let's have a look at what we learned.
+And we're gonna start with SQS.
+So SQS is the way to decouple your infrastructure.
+So we use the example of a meme website or travel website.
+Essentially, basically, you store your messages in SQS
+and your EC2 instances will go get those messages
+and go ahead and do something.
+If those EC2 instances, for whatever reason,
+stop working or are terminated
+the message will then reappear in the queue
+and another EC2 instance will go in and get it.
+And then that way, if anything fails, it doesn't break
+you entire application stack.
+Remember that SQS is pull-based.
+It's not push-based.
+If you want push-based messaging, you're gonna use SNS.
+Messages are 256 kilobytes in size.
+You can actually have them bigger
+but it wouldn't be stored in SQS
+it would be stored in S3.
+And messages can be kept in the queue
+from 1 minute to 14 days
+and the default retention period is 4 days.
+And then just remember the two different types of SQS.
+So we've got Standard SQS and we've got FIFO SQS.
+And you have to understand the different use cases for them.
+So standard order is not guaranteed
+and messages can be delivered more than once.
+With FIFO order is strictly maintained
+and messages are delivered only once.
+So really remember that going into your exam.
+Remember the difference between Standard and FIFO.
+Also remember the Visibility Timeout.
+This is the amount of time that the message is invisible
+in the SQS queue after a reader picks up that message.
+Provided the job is processed before
+the visibility time out expires,
+the message will then be deleted from the queue.
+If the job is not processed within that time,
+the message will become visible again
+and another reader will process it.
+This could result in the same message being delivered twice.
+So if you are getting the same message
+being delivered twice and this is the root cause
+you may want to increase your visibility timeout,
+just to give your EC2 instances that little bit of
+extra time to process the message.
+And just remember that the visibility timeout maximum
+is 12 hours.
+Also remember that SQS guarantees
+your messages will be processed at least once.
+And then long polling is a way to retrieve messages
+from your SQS queues.
+While regular short polling returns immediately
+even if the message queue being polled is empty.
+long polling doesn't return a response
+until a message arrives in the message queue,
+or the long poll times out.
+And this is a way of saving money with SQS.
+Moving onto SWF.
+I appreciate we just sort of,
+you know, glazed over it a little bit.
+Really, you just need to understand SWF vs SQS.
+'Cause you're gonna get scenario-based questions
+and you really wanna pick the right one.
+So SQS has a retention period of 14 days;
+with SWF, Simple Workflow service,
+workflow executions can last up to 1 year.
+And SWF presents a task-orientated API,
+whereas SQS offers a message-orientated API.
+So if you get a scenario-based questions
+talking about a task-based structure
+and maybe it's got human workers for example,
+then you want Simple Workflow.
+If you're talking about a message-based system,
+then you're going to go after SQS.
+SWF ensures that a task is assigned only once
+and is never duplicated.
+With SQS you need to handle duplicated messages.
+If you're using the standard one,
+if you're not using FIFO.
+And you may also need to ensure
+that a message is processed only once.
+And then SWF keeps track
+of all tasks and event in an application.
+With SQS, you need to implement your own
+application-level tracking,
+especially if your application has multiple queues.
+Then we've learned a little bit about SWF.
+So Simple Workflow Services actors.
+So we have Workflow Starters.
+These are applications that initiate or start a workflow.
+Could be your e-commerce website
+following the placement of an order,
+or a mobile app searching for bus times.
+Then how about Deciders.
+These basically control activity tasks
+in a workflow execution.
+And if something has finished
+or failed in a workflow,
+a Decider decides what to do next.
+And then we have our Activity Workers.
+And these are basically, people or programs or applications
+that carry out activity tasks.
+You see anything about a human working in a warehouse
+and you need a way of managing it,
+then think of Simple Workflow service.
+As I mentioned, AWS use, sorry, Amazon.com use
+Simple Workflow to help run their warehouses.
+Moving onto SNS.
+Just remember what it is and
+the different benefits that it gives you.
+So it's instant push-based delivery.
+So there's no polling like with SQS.
+If you want pull-based, you're gonna go for SQS.
+If you want push-based, you're gonna go for SNS.
+Give you simple APIs and easy integration with applications.
+You get flexible message delivery
+over multiple transport protocols.
+It's inexpensive, pay-as-you-go model
+with no up-front costs.
+It's a web-based AWS Management Console
+offers the simplicity of a point-and-click interface.
+And then just like I said, remember,
+SNS vs SQS.
+They're both messaging services in AWS
+but SNS is push, SQS is pull or polls
+your EC2 instances poll the SQS queue.
+Moving onto Elastic Transcoder.
+It's really simple.
+Just remember that it's a media transcoder in the cloud.
+It converts your media files
+from their original source format into different formats
+that will play on smartphones, tablets, PCs, etc.
+Then API Gateway.
+I appreciate that this was quite high-level.
+We are going to get our hands dirty with API Gateway
+in the next section of the course.
+API Gateway is definitely worth 5 or 10 marks.
+So just remember what it is at a high-level.
+It's, basically, a gateway into your AWS resources,
+your AWS infrastructure.
+It has caching capabilities to increase performance.
+It's low cost and scales automatically.
+That being said, you can throttle API Gateway
+to prevent attacks.
+And you can log your results to CloudWatch
+using API Gateway.
+Then if you're using JavaScript or AJAX that uses
+multiple domains with API Gateway,
+you have to ensure that you have enabled CORS
+on your API Gateway.
+So Cross-Origin Resource Sharing.
+And remember that CORS is always enforced
+by the client's browser.
+Moving onto Kinesis.
+Just remember the difference between Kinesis Streams
+and Kinesis Firehose.
+Kinesis Streams has data persistence.
+It's gonna store your data by default for 24 hours
+but can go up to a longer period of time.
+So you get your data persistence.
+And then you have your EC2 instances going in
+and getting the data from the streams.
+Kinesis Firehose is where you need to analyze your data
+in real time and then find the place to store it.
+'Cause there is no persistence
+so you could have lambda functions running in Firehose
+that then store that data into S3
+or they can put it into Elastic Search clusters, etc., etc.
+So if you see anything mentioning about shards
+or about data persistence, you want streams.
+If you want real time analytics,
+and then a place to put it in instantly
+with no data persistence,
+then you're gonna be using Firehose.
+And you're gonna be given scenario-based questions
+where you must choose the most relevant service.
+And then you have Kinesis Analytics,
+which basically, helps you analyze your data
+in both Firehose, as well as Kinesis streams.
+And then finally, we looked at Cognito.
+So Cognito allows us to do Web Identity Federation.
+Federation, essentially, allows users to authenticate
+with Web Identity Providers such as
+Google, Facebook, and Amazon.
+And essentially, the way it works is the user
+authenticates first with the Web ID provider
+and receives an authentication token,
+which is then exchanged for temporary AWS credentials
+allowing them to assume an IAM role.
+And Cognito is an identity Broker which handles
+the interaction between your applications
+and the Web ID provider.
+So you don't need to go ahead
+and write your own code for this.
+And then the main thing to remember for Cognito
+is the difference between our user pools.
+So our user pools are user-based
+and they handle things like user registration,
+authentication and account recovery, etc.
+Or as identity pools authorize access to our AWS resources.
+So that is it for this section of the course.
+You've done really really well.
+In the next section we're gonna go in and learn
+all about lambda and serverless architectures.
+And then we're gonna start building
+some serverless websites.
+So if you've got the time, please join me
+in the next lecture.
+Thank you.

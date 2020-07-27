@@ -1,0 +1,315 @@
+Okay, hello Cloud Gurus,
+and welcome to this lecture.
+In this lecture, we're going to look at Lambda,
+and this is the serverless section of the course.
+This is the very last hands-on section,
+and in this section we're going to just learn
+the theory of Lambda, then we're gonna go ahead
+and create a serverless website
+using API Gateway as well as Lambda.
+And then in the next lecture, we're gonna go on,
+we're gonna create a skill.
+We're gonna create an Alexa skill,
+and most people don't realize this,
+but every time you talk to Alexa, you are talking to Lambda,
+you are talking to the cloud,
+and when Alexa responds back to you,
+that is the cloud talking back to you.
+So before we go on to what Lambda is,
+let's talk a bit about the brief history of Cloud.
+So we used to always have data centers, and essentially,
+basically all organizations would have
+their own data centers.
+Some would use providers like Rackspace, for example,
+and it would all be physical hardware.
+So when you ordered a server, like a web server let's say,
+that would actually be a physical server dedicated to you,
+and I used to work in the Cloud when this was the case,
+and sometimes it would take 10 days to provision
+a physical server, some companies I worked for,
+it'd take six months.
+So when you went in and you ordered it,
+and say you wanted two web servers, two database servers,
+a load balancer, some firewalls, and then some SAN,
+that could take anywhere from 10 days to six months
+to provision. And then Amazon came in,
+and launched EC2 in 2006,
+and suddenly you could provision virtual machines
+just using a simple API core.
+You could have a machine with you, ready in minutes,
+and it completely changed the entire architecture,
+completely changed the entire game,
+and Public Cloud started becoming bigger and bigger.
+Rackspace and Amazon went to war with each other,
+but Amazon could basically completely outspend Rackspace
+on investment, and then I basically moved around
+the UK Cloud industry, so I left Rackspace,
+and went to work for a whole bunch of other Cloud providers,
+and it's when I actually saw CloudFormation
+that I started realizing how powerful AWS's cloud was,
+and how infrastructure was being turned into code.
+So, basically, EC2 was launched in 2006,
+that was infrastructure as a service.
+We then moved on to platform as a service, this was,
+Microsoft are really big in this space,
+and then Amazon launched things like Elastic Beanstalk,
+for example.
+That's a good platform as a service example.
+So this is where you upload your code,
+and essentially what will happen is
+the public Cloud provider will provision
+all the infrastructure underneath,
+you don't need to worry about that.
+Then containers started really taking off in about 2014.
+So Docker, for example.
+We didn't really cover containers in this course,
+they don't really come up in the Solutions Architect exam,
+they do come up in the Developer,
+and SysOps Administrator Associate exam.
+And then, basically, containers moved on even further,
+and we went to serverless, and with serverless,
+literally all you worry about is your code.
+You put your code up into AWS or into the cloud,
+and then someone will go and do something,
+so it might be uploading a file to S3,
+or it might be just a request from API, API Gateway,
+but something will go in and trigger that code,
+and you're only paying for the execution time,
+so you're only paying for when that code is being executed.
+And that's really the full evolution of cloud.
+We've gone from physical servers inside data centers,
+and we're up to almost the ultimate abstraction layer now.
+which is just focusing on your code,
+and not having to worry about anything else underneath it.
+With containers, you still have to worry
+about managing the containers,
+and then you get things like Kubernetes, for example,
+that do that at scale,
+but with serverless you don't need to worry
+about managing anything, all you need to worry about
+is your code.
+So that brings us onto Lambda, and what is Lambda?
+Well, Lambda is the ultimate abstraction layer.
+So you've got your data centers,
+inside your data centers you've got your hardware,
+inside your hardware, you've got your assembly code,
+and protocols, you've then got your high level languages.
+You've then got your operating systems that you're running.
+You then got your application layer, as well as AWS's APIs
+and then sitting on top of all that, or extracted away,
+is AWS Lambda.
+So basically, AWS handle all of these things for you,
+all you need to worry about is your code.
+So AWS Lambda is a compute service where you can upload
+your code and create Lambda functions.
+And AWS Lambda takes care of provisioning and managing
+the servers that you use to run the code.
+You don't have to worry about operating systems,
+patching, scaling, et cetera, et cetera.
+All you do is worry about your code.
+And you could use Lambda in the following ways,
+you can use it as an event-driven compute service
+where AWS Lambda runs your code in response to events,
+and these events could be changes to data
+in an Amazon S3 bucket or a DynamoDB table, et cetera.
+Those event-driven compute services are called triggers,
+and then, you can also use it as a compute service
+to run your code in response to HTTP requests
+using Amazon's API Gateway or API calls made
+using the AWS SDKs,
+and this is what we use it for at A Cloud Guru.
+We actually use it in both of those ways, actually.
+When you upload a video to our site using S3,
+that will then trigger an Elastic Transcoder job.
+So we use it both as an event-driven compute service,
+as well as a compute service that runs
+in response to HTTP requests that are hitting API Gateway,
+and we'll cover that off in a couple of slides.
+So what is Lambda?
+Well, let's say we've got our user,
+here's our user, and they want to create a meme.
+So they then upload this meme to an S3 bucket,
+And that triggers a Lambda function.
+and the Lambda function essentially will take that meme,
+and it will basically take the metadata as well,
+and it will put the word "Why?", for example, over the meme.
+So that would be how it creates a meme,
+and the cool thing about Lambda is it can trigger
+other Lambda functions, so it can trigger
+another Lambda function to tell the user that
+"Here you go, here's your meme."
+And it could also trigger another Lambda function
+to store that meme back in an S3 bucket,
+and then you could use cross region replication
+to store that meme somewhere else in the world,
+and the other way Lambda works is as a compute function.
+So we've got our user, they send a HTTP request
+to API Gateway.
+API Gateway then proxies that to Lambda.
+Lambda will run the code in response to that HTTP request,
+and then send it back to API Gateway,
+that will send it back to our user.
+And the cool thing about the way Lambda scales
+is let's say we've got two users
+with two separate HTTP requests, both will hit API Gateway,
+and both will trigger to the same Lambda function,
+but it will be separately run,
+so they'll be separately, isolated from each other,
+and of course they'll return a response back to the user.
+And so Lambda is, it's a bit different from auto scaling,
+in that, obviously when a user goes in,
+you might just spread it across two webservers.
+If you have a million users hitting your API Gateway
+at once, that will then go on,
+and trigger a million different Lambda functions,
+so that's how well it scales.
+We really need to talk about traditional architecture
+versus serverless architecture,
+'cause this comes up and awful lot
+in the Certified Solutions Architect Associate exam.
+So traditional architecture in cloud has always been
+your user sends a request, it hits Route 53, let's say,
+qnd then goes on to your elastic load balancer.
+Your load balancer sends it on to your web servers,
+and then your web servers might communicate
+with a back end RDS or database server,
+and then it sends back a response to the user.
+Now, that's all well and good,
+but you're still relying on physical,
+well you're still relying on virtual machines,
+you're still relying on Operating Systems.
+Now the cool thing about the serverless architecture world
+is that, basically, you send a response to API Gateway,
+that then sends a response to Lambda,
+and that can write to DynamoDB,
+it could write to Amazon's Aurora, or serverless Aurora,
+and then it will send the response back to the user.
+But like I said, if you get a million users
+hitting an API Gateway at once,
+and assuming you haven't throttled API Gateway,
+it will scale to that instantly.
+You don't need to worry about auto scaling,
+or your EC2 instances becoming overwhelmed.
+So serverless architecture is a much better way
+of architecting your products,
+and in the exam you're gonna be asked to create,
+you'll have all these different scenario questions,
+and essentially what they're testing you on
+is how well do you understand serverless architecture,
+and so just remember that you're always gonna
+have API Gateway at the front end to serve the request,
+you're gonna have your Lambda functions
+that scale out automatically,
+and then you're going to have, basically,
+if you're gonna go serverless,
+you want a database that's serverless,
+so either DynamoDB, or it could be Aurora Serverless
+as well.
+So what languages does Lambda support?
+Well, it supports Node.js, Java, Python, C#,
+it supports Go, and it also supports PowerShell.
+And in terms of how Lambda is priced,
+it's priced on two different things,
+it's priced on the number of requests,
+so the first one million requests are free,
+and then you're only paying 20 cents
+per one million requests thereafter.
+We at A Cloud Guru, I think we grew to like 300,000 students
+before we even started getting a Lambda bill.
+So it is amazingly cheap.
+It really allows startups to scale very, very quickly.
+Even now we're getting close to a million users,
+and our Lambda Compute bill I think, per month,
+is about $400.
+If we were actually doing the same level of compute
+across EC2, we'd probably be spending upwards
+of $100,000 per month.
+So that's how much Lambda has saved our company,
+and that's why you should really look at going serverless.
+And then you also build on duration,
+so however long your function runs,
+will basically bill it.
+So, let's say your function runs for 100 milliseconds,
+then you're going to be charged a certain amount.
+If it goes for 200 milliseconds, or a minute,
+or 10 minutes, then you're gonna be charged more and more.
+So you're charged on the number of requests,
+and then the duration of the requests.
+So why is Lambda cool?
+Well, you don't have to worry about any servers,
+you don't need system administrators anymore,
+you don't need to worry about patching
+your operating system,
+you don't need to worry about anti-virus,
+you don't need to worry about
+why your EC2 instance keeps crashing,
+you don't have to worry about servers at all.
+It continuously scales.
+Like I said, every time you make an invocation
+to API Gateway, that will trigger
+a separate Lambda function, and it's super, super cheap.
+Like I said, we spend 400 bucks a month
+on our compute bill when, really,
+it should probably be in the regions of $100,000 or so.
+So Lambda is seriously cool.
+And like I said, every time you deal with Alexa,
+so every time you speak to an Amazon Echo,
+or to an Echo Show, or an Echo Dot, or whatever,
+you are actually directly speaking to Lambda,
+so it's really cool when you think about it,
+you are speaking directly to the AWS Cloud,
+and the AWS Cloud is speaking back to you.
+So on to my exam tips.
+Just remember that Lambda scales out, not up, automatically,
+so if you have five invocations,
+that's gonna scale out to five different Lambda functions
+being executed at the same time.
+Remember that Lambda functions are independent,
+so one event equals one function.
+Remember that Lambda is serverless,
+and you should really go into your exam understanding
+what services are serverless.
+So RDS is not serverless,
+even though you don't have to worry
+about the operating system, Amazon takes care of it,
+there is still an operating system there
+that they have to go in and patch,
+and you still have downtime
+whenever they're doing maintenance and stuff.
+The exception to that, obviously, is Aurora Serverless,
+that's the only RDS service that is serverless.
+Things like dynamoDB, things like S3, things like Lambda,
+API Gateway, all serverless technologies,
+EC2 obviously is not serverless, it's a virtual machine.
+And then just remember that Lambda functions
+can trigger other Lambda functions.
+So one event can actually equal X number of functions,
+if functions are triggering other functions.
+So you could have one event which triggers off
+five, or 10, or 15, or 20 different Lambda functions.
+And then just remember that architectures can start
+getting extremely complicated with Lambda,
+and it can be really difficult to debug these,
+and that's what the AWS X-Ray service allows you to do.
+It allows you to go in and debug
+what is happening with Lambda.
+We're not gonna have a lecture on X-Ray,
+'cause literally all you need to know is what it is,
+so it helps you debug your serverless applications.
+And then Lambda can also do things globally,
+so you can use it to back up an S3 bucket
+to another S3 bucket, et cetera, et cetera.
+And go in knowing your triggers,
+and we're gonna cover this off when we go in,
+and build our serverless website, when we go in,
+and bild our Alexa skills, but you really need to know
+the different Lambda triggers.
+You need to commit them to memory, or at least,
+you should know what can't trigger Lambda,
+for example, RDS cannot trigger Lambda, as of yet.
+So that is it for this lecture, everyone.
+If you've got any questions, please let me know.
+If not, feel free to move on to the next lecture,
+where we're gonna go in,
+and create our first serverless website
+using API Gateway and Lambda.

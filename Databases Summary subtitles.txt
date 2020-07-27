@@ -1,0 +1,139 @@
+Okay hello Cloud Gurus,
+and welcome to this lecture.
+So congratulations, you're at the end of the
+databases section of the course.
+In this lecture we're just gonna summarize
+everything we've learnt about our databases.
+So we learned about RDS, this is used for
+online transaction processing,
+comes in six different flavors.
+We've got SQL server, MySQL,
+PostgreSQL, Oracle, Aurora, and MariaDB.
+We then have Amazon's DynamoDB service,
+this is a no SQL database service available to us.
+We are gonna create our own DynamoDB table
+in the serverless section of the course,
+so get more hands on with that.
+We then learnt about Red Shift,
+Amazon's data warehousing solution,
+and this is used for online analytics processing.
+We then also learnt about elasticache.
+This comes in two different flavors, Memcached and Redis.
+Memcached is used if we want something very, very simple,
+where as Redis is used for more advanced data types
+and if we need multiple availability zones
+or if we need to be able to do backups.
+In terms of relational databases
+just remember the following points.
+RDS runs on virtual machines and you cannot SSH
+into these operating systems.
+You cannot log in, so you can't RDP using Windows,
+and you can't SSH to your Linux operating systems,
+and that is a really important point
+to remember for your exams.
+Patching of the RDS operating system and Database
+itself is always going to be Amazon's responsibility,
+because you do not get operating system level access.
+Remember that RDS is not serverless,
+however, there's an exception to the rule.
+There's Aurora Serverless, and that is serverless.
+So almost everything in RDS is not serverless,
+with the exception of Aurora Serverless.
+DynamoDB is serverless, however.
+Remember there's two different types of backups for RDS,
+we've got automated backups and then
+we've got our database snapshots.
+So moving on to read replicas,
+read replicas can be multi-AZ,
+and they are primarily used to increase performance,
+and this is a very common exam scenario.
+Basically you've got a struggling database,
+it's got very heavy read traffic,
+maybe it's a WordPress blog or something like that.
+How do you increase, you know,
+the performance on that database?
+And one of the answers is of course to add read replicas
+and to point your EC2 instances to those read replicas.
+Just remember to enable read replicas you must
+have backups turned on.
+And read replicas can be in different regions
+as well as the same region,
+so you can have read replicas around
+different regions in the world,
+and read replicas can be MySQL, PostgreSQL,
+MariaDB, Oracle, and Aurora.
+The only database engine or RDS engine that doesn't support
+read replicas at this time is SQL Server.
+And remember that read replicas can be promoted to a master,
+but when you do this it's going to break the read replica,
+so it's going to break the replication.
+Remember that multi-AZ is used for DR only,
+it is not used for performance,
+and you can force a failover from one availability zone
+to another by rebooting the RDS instance.
+Remember that encryption is supported for MySQL,
+Oracle, SQL Server, PostgreSQL, MariaDB and Aurora.
+Encryption is done using the AWS KMS service,
+or Key Management Service,
+and once your RDS instance is encrypted,
+the data stored at rest in the underlying storage
+is going to be encrypted,
+as well as when do you automated backups,
+read replicas, and snapshots,
+they're also all going to be encrypted as well.
+DynamoDB, serverless, like I said.
+It's stored on SSD storage,
+it's spread across three geographically
+distinct data centers.
+You have two different types of consistency,
+remember the one second rule?
+So you've got eventual consistency,
+so if your application doesn't need to read your
+updated data within one second
+then you want eventual consistency,
+and this is what you get by default.
+If however your application needs that data to be updated,
+it always has to have a perfect copy of the data,
+and certainly within less than one second,
+then you probably want strongly consistent reads.
+Moving on to Redshift,
+Redshift is used for business intelligence.
+It's only available in one availability zone right now.
+When you're doing backups, Redshift has backups enabled
+by default with a one day retention period.
+Just like with RDS, you can extend this
+retention period to 35 day.
+Redshift will always attempt to maintain
+at least three copies of your data,
+the original and replica on the compute nodes
+as well as a backup in Amazon S3.
+Remember that Redshift can also asynchronously
+replicate your snapshots to S3 in another region
+for disaster recovery.
+So moving on to Aurora, remember going into your exam
+that two copies of your data are contained
+in each availability zone with a minimum
+of three availability zones,
+so you're always going to have six copies of your data.
+You can share Aurora snapshots with other AWS accounts,
+and there's three different types of replicas available.
+You've got your Aurora replicas, your MySQL replicas,
+and your PostgreSQL replicas,
+and automated failover is only
+available with Aurora Replicas.
+Remember that Aurora has automated
+backups turned on by default,
+and you can also take snapshots with Aurora,
+which is what I said earlier,
+and you can share these snapshots with other AWS accounts.
+And then finally, remember that to use Aurora Serverless,
+if you want a simple, cost effective option
+for infrequent, intermittent, or unpredictable workloads.
+Elasticache, so remember that you use elasticache
+to increase database and web application performance.
+It does this by caching.
+If you need multi-AZ then you're going to be using Redis.
+If you need backups then you're going to be using Redis.
+So that is it for this section of the course, guys.
+If you have any questions please let me know,
+if not, feel free to move on to the next section, thank you.

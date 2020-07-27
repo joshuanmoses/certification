@@ -1,0 +1,411 @@
+Okay, hello Cloud Gurus
+and welcome to the very last lecture
+in the S3 and IAM section of the course.
+So congratulations, you've completed your first
+theoretical and practical section of the course.
+So, we're gonna look at everything we learnt
+in this section.
+So, we learnt that identity access management
+consists of the following.
+So, it consists of users, groups, roles
+and then you apply policies to these three different things.
+So, you apply policies to your users, groups and roles.
+If you apply a policy to your group
+and you've got users within that group,
+they're going to inherit that policy automatically.
+Now, I know we didn't really cover off roles much
+in this section of the course.
+We are going to look at it in more detail
+in the next section the course.
+We did create a role when we turned on
+cross region replications.
+If you actually go into IAM and have a look at your roles,
+you'll see a role there for cross region replication.
+We also learnt about JSON.
+So, this is what the policies look like.
+So, it's JavaScript object notation language.
+Now, IAM itself does not come up much
+in the Certified Solutions Architect Associate exam anymore.
+It's all being moved to the security specialty.
+That being said you can't actually use AWS
+without knowing IAM so it is really important
+to understand the core concepts of IAM
+and what users, groups, roles and policies are.
+We also learnt that IAM is universal,
+it does not apply to regions at this time.
+The root account is simply the account that's created
+when you first set up your AWS account
+and it has complete administrator access.
+New users have no permissions when first created
+and you'll find this is a theme within Amazon.
+It's called least privilege.
+So, whenever you create a new user,
+that user's not going to have any rights or any privileges
+until you grant them privileges.
+Likewise when we look at S3, when we create our bucket,
+it's locked down, it's not public
+and making objects public is not that easy.
+You have to go through a process to do it.
+So, that's a common theme within Amazon Web Services.
+New users are assigned an access key ID
+and secret access key when first created.
+These are not the same as a password.
+You cannot use the access key ID and secret access key
+to log into the console.
+You use it to access AWS via the APIs
+and the Command Lines, however.
+And we are going to look at that in the next section
+of the course.
+And you only get to view your access key ID
+and secret access key once.
+If you lose them you have to regenerate them.
+So, make sure you save them in a secure location.
+So, moving on, the final bits we learned about IAM
+is you always setup multi-factor authentication
+on your root account
+and you can also create and customize
+your own password rotation policies.
+So, moving away from IAM, let's look at S3.
+So, remember that S3 is object base.
+It allows you to upload files and those files
+can be zero bytes all the way up to five terabytes
+and there is unlimited storage
+and you store your files in these things called buckets
+and it's basically just a folder in the cloud.
+Now, S3 is a universal namespace
+so that means that your buckets must,
+bucket names must be unique.
+You can't have test bucket because somebody already owns it.
+You can't have a cloud guru because somebody already owns it
+and it's not me, sadly
+and this is what the URL looks like when going to S3.
+So, it's always S3 then the region and then .amazonaws.com
+and then forward slash your bucket name.
+Now, remember that S3 is object-based storage
+so it's not suitable to install an operating system on
+or a database or anything like that.
+And then when you upload you know objects to S3
+or files to S3, your browser's always gonna get
+a HTTP 200 status code that the upload has been successful.
+Now, by default all newly created buckets are private.
+You set up access control to your bucket
+using bucket policies and bucket policies of bucket wide
+and then you can also use access control lists
+and these can go down to the individual files or objects
+in your bucket.
+Now, remember that S3 buckets can be configured to create
+access logs which logs all requests made to the S3 bucket
+and these can be sent to another bucket
+in the same AWS account or even another bucket
+in another AWS account.
+And we go into that architecture a lot
+in the security specialty.
+There's certain ways you can design your AWS infrastructure
+to be with super secure using multiple accounts.
+Moving on, the key fundamentals of S3.
+So, the basically S3, you've got a key
+and this is simply the name of the object.
+You've then got a value and this is simply the data
+is made up a sequence of bytes
+so some sometimes people refer to S3 as a key value pair.
+We then have the version ID which we saw
+when we turned on versioning.
+We have metadata so we have data about data
+that we're storing and we do that through tags
+and then you get some sub resources
+such as access control lists and then torrents as well.
+Now remember, the consistency model
+going into your exam for S3.
+So, it's read after write consistency of puts of new objects
+and eventual consistency for overwrite puts and deletes
+and this can take some time to propagate.
+And like I said, what does that mean in everyday language?
+Well, if you put an object into S3,
+you're gonna be able to read it immediately.
+If you overwrite an object or delete an object in S3
+and you read it instantly after that,
+you could get the old version
+or you could get the new version.
+So, sometimes you will get eventually the right version
+but sometimes it takes some time to propagate.
+Then seriously, this is a big exam topics.
+It's worth at least four or five marks.
+You have to understand the different S3 classes of storage.
+So, we've got S3 standard, that's what most people use.
+S3 infrequently access.
+So, this is where you want the same sort of durability
+and availability as standard S3 but you,
+you wanna pay a lower fee but you still need
+instant access to S3 infrequently accessed.
+We then have S3 one zone infrequently accessed.
+This is what's only gonna be in one availability zone
+so you have to you know plan for that
+but it is a much lower cost.
+S3 intelligent tiering uses machine learning
+to move your objects around depending on how often
+you use them.
+S3 glacier is for data archival
+and you can configure your retrieval time
+from minutes to hours.
+And then we have S3 glacier deep archive
+and this is basically Amazon's lowest cost storage class
+but you will have a retrieval time of 12 hours.
+And while we're on the topic of tiering,
+remember that you're going to get scenario based questions
+and they'll basically ask you to choose which S3 tier
+that you're going to get.
+So, we start off with standard that's the most expensive.
+We then have S3 infrequently accessed.
+We then have S3 intelligent tiering
+and that's pretty much a best bet
+because if you aren't accessing objects,
+it will automatically move it over to S3 infrequently access
+and save you some money.
+We then have S3 one zone infrequently access.
+It's even more cheaper than the intelligent tiering tier.
+However, do keep in mind that if your data is crucial,
+you basically don't wanna put it on that
+because if you lose that zone, that's it,
+you've lost your data.
+So, it is a lot cheaper,
+it's for data that you can easily reproduce
+and you will get that as a scenario-based question.
+We then have glacier, this is for data archival.
+And then the cheapest of all the storage
+is S3 glacier deep archive.
+So again, you are going to get a whole bunch
+of scenario questions and it will ask you
+what is the cheapest S3 tier to choose?
+And that's just basically on the cost
+of the storage of data itself.
+So, just remember them in this order.
+It starts off with S3 standard as most expensive,
+then infrequently access, then S3 intelligent tiering,
+then S3 one zone infrequently access, then glacier
+and then glacier deep archive.
+Moving on, let's talk about encryption.
+So, encryption in transit is achieved by using HTTP and TLS.
+So, every time you go and visit, let's say, Google.com,
+if you've got a HTTPS in the browser,
+that means your that traffic is going to be encrypted.
+So, if someone is in the middle trying to listen to that,
+they won't be able to figure out
+what it is you're viewing on Google.
+So, that's how we do encryption in transit.
+So, in terms of how this relates to S3,
+whenever you go to aws.amazon.com
+and you go into the S3 console
+so long as you're using HTTPS,
+all the traffic, all the files that you're uploading
+are going to be encrypted.
+So, that's encryption in transit.
+Now, S3 also has encryption at rest
+and this is achieved by both the server side encryption
+as well as client-side encryption.
+On the server side, it's achieved by three different ways.
+So, we've got S3 managed keys.
+This is where S3 just handle all our encryption for us
+and we don't have to worry about them.
+Got AWS key management service or KMS,
+this is where we can start using keys from the KMS service
+and we cover this in an awful lot of detail
+in the certified security specialty.
+And then we've got server side encryption
+with customer provided keys.
+So, this is where you provide your keys
+and you manage the encryption
+and the actual you know maintenance of those keys.
+And then we also have client-side encryption.
+So, this is where you encrypt the objects
+and then you upload them to S3.
+So, that is encryption with S3 on AWS.
+We then covered off AWS organizations.
+Now, I know it wasn't related to S3
+but we needed it to turn on in order to show you
+how to access S3 buckets from one account to another.
+So, some best practices with AWS organizations.
+Always remember to enable multi-factor authentication
+on the root or master account.
+Always use strong and complex passwords
+on that root account.
+The paying account should be used for billing purposes only.
+Do not deploy resources into the paying account,
+into the root account of the master account,
+it should really just be used for billing
+and then setting up, you know things like
+organizational unit, service control policies, et cetera.
+And then you can enable and disable AWS services
+using service control policies or SCPs,
+either on organizational units
+which are basically just groups
+or maybe it's your finance group or your HR group et cetera
+or on individual accounts themselves.
+And so, service control policies are basically just like
+policies in identity access management.
+Essentially, they enable or disable services
+for AWS accounts.
+So, maybe you don't want your finance team
+and all the AWS accounts associated with it
+being able to provision EC2 instances for example
+and we're going to cover off EC2 in the next section
+of the course.
+And then just remember there's three different ways
+to share S3 buckets across accounts.
+So, we can do this using bucket policies
+and identity access management.
+And because it's a bucket policy,
+it applies across the entire bucket
+and it's programmatic access only.
+We can do this using bucket ACLs
+and identity access management.
+And because we're using ACLs, this is on individual objects
+and again this is programmatic access only
+and then there's cross account
+identity access management roles
+and this is programmatic and consort access
+and that's what we did in that lab.
+We were able to go in and be in one AWS account
+and then assume a role and then go into another AWS account
+and create a bucket.
+So, on to cross region replication.
+Basically, for the exam, you really just need to know
+what it is and if you forget, just look at the name.
+It's a way of replicating objects across regions
+but you can also replicate them within the same region.
+So, in order for cross region replication to work,
+you need versioning to be enabled on both the source
+and the destination buckets.
+Files in an existing bucket are not replicated automatically
+so if you turn it on for an existing bucket
+and then create a new bucket,
+those files will not be copied automatically.
+However, all subsequent updated files
+will be replicated automatically.
+Remember that your delete markers are not replicated
+so if you delete an object in one bucket,
+it's not going to be deleted in the other.
+And then deleting individual versions or delete markers
+will also not be replicated.
+So, really going into your exam,
+understand what cross region replication is at a high level.
+Moving on to lifecycle policies.
+So, what is a lifecycle policy?
+Well, basically, it automates moving your objects
+between the different storage tiers.
+That's all the policies are
+and they can be used in conjunction with versioning
+and they can be applied to current versions
+as well as previous versions.
+Moving on to S3 transfer accelerations.
+So, we have our users, they're all around the world.
+We have our edge locations.
+Our users will upload their files
+to the edge locations first
+and then those files will go over
+the AWS backbone network to S3.
+And we saw how mostly it can improve speed and performance.
+So, if you do need to increase the performance of your,
+you know, of your users being able to upload files to S3,
+look at S3 transfer acceleration.
+Moving on to CloudFront.
+So, we learnt what an edge location was
+so this is the location where the content
+is going to be cached and it's separate to an AWS region
+or availability zone.
+We learned what an origin was, this is the origin
+of all our files that the CDN will distribute
+and this can either be an S3 bucket, an EC2 instance,
+an elastic load balancer or Route53.
+And then we learned what a distribution was
+and this is simply the name given to the CDN
+which consists of a collection of edge locations.
+And then we have two different types of distributions.
+We've got our web distributions.
+This is typically used for websites
+and then we've got our TMP, this is used for Adobe media
+and it's used for media streaming.
+Also, with CloudFront, we learnt that edge locations
+are not read-only, you can write to them as well,
+ie put an object to them.
+So, we looked at that with transfer acceleration.
+And then objects are cached for the time to live or TTL
+and that value is always in seconds
+and then you can clear cache objects by invalidating them
+but you will be charged so do remember that.
+Snowball, seriously, you just need to understand
+what snowball is.
+So, basically, it's a big disk that you can use
+to move your data in and out of the AWS cloud
+and snowball can be imported into S3.
+So, you can import data into S3.
+You can also use snowball to move large amounts of data
+out of S3.
+Moving on to storage gateway.
+Now, I did this exam just a couple of days ago
+and storage gateway wasn't there.
+That being said, it does come up actually
+in the Solutions Architect Professional exam
+so it's just important to understand a storage gateway
+and it may well still come up in the associates.
+It always used to, it did for three years
+so I don't wanna risk not teaching it.
+So, we have the different types of storage gateway.
+We've got file gateway, this is used for flat files
+that are stored directly on S3 and that's NFS.
+We then have volume gateway, that's iSCSI
+and we have two different types of volume gateways.
+We've got our stored volumes
+and this means that your entire dataset is stored on site
+so it's literally a 100% copy of your data
+being stored on-site and then it's backed up to S3.
+Then also have cached volumes
+and this is where the entire data set is stored on S3
+and only the most frequently accessed data
+is cached on site and if you get those two confused,
+just look for the word cache, that's all you need to see,
+or cache, however you wanna pronounce it,
+whether you're Australian or American.
+We also then have gateway virtual tape library
+and this is used for backups
+and works with really popular backup applications
+like NetBackup, Backup Exec, Veeam et cetera
+and it's a great way of getting rid of your physical tapes.
+Moving on to Athena.
+This is a very popular exam topic.
+All you really need to know is what Athena is
+and what it allows you to do.
+So, it's an interactive query service.
+It allows you to query data located in S3
+using standard SQL.
+It's serverless and it's commonly used to analyze log data
+stored in S3 but any kind of data that you want,
+but any kind of data that you want to run
+SQL queries against, you're going to be using Athena.
+Do not confuse Athena with Maicie.
+Maicie uses AI to analyze data in S3 and helps to identify
+personally identifiable information or PII.
+So, things like your social security number, your address,
+your credit card numbers, et cetera.
+It can also be used to analyze CloudTrail logs
+for suspicious API activity.
+It includes dashboards, reports and alerting
+and it's great for PCI-DSS compliance
+as well as preventing ID theft.
+So, Athena is used for running SQL queries.
+Maicie is used as a security service to look for PII.
+And then finally, I would read the S3 FAQ
+before going into your exam
+because S3 is going to come up an awful lot
+in the Solutions Architect Associate Exam.
+So, that is it for this section of the course guys,
+you've done really really well.
+We're going to go and look at EC2
+which is Amazon's virtual machine service
+in the next section.
+We're gonna learn an awful lot.
+We're gonna start using the Command Line.
+We're gonna start provisioning web servers
+and it is an awful lot of fun.
+So,, if you've got the time,
+please join me in the next section of the course.
+Thank you.

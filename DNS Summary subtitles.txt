@@ -1,0 +1,135 @@
+Okay hello Cloud Gurus,
+and welcome to this lecture.
+Congratulations you're at the very end of the DNS section.
+I know DNS is not the most exciting topic in the world.
+But you do definitely need to know it
+to be a solutions architect in real life.
+So, you will definitely get Route 53 questions
+on your exams.
+It's probably going to be worth around four to five marks.
+So, make sure you do understand it
+inside out, going into your exam.
+So, let's cover off what we've learned.
+My Route 53 exam tips.
+Now, always remember that elastic load balancers
+do not have pre-defined IPv4 addresses,
+you resolve to them using a DNS name.
+I appreciate we haven't covered off elastic load balancers
+much yet in the course.
+We will get that when we move on to the
+the highly available section of the course.
+And ELBs, ALBs whatever it is you want to call them -
+they are extremely important topic
+for the Certified Solutions Architect Associate exam.
+You should definitely understand the difference between
+an alias record and a CNAME.
+If you just remember
+that Yellow Pages picture that we had up.
+So we had all our A records which was just people's names.
+And then their telephone numbers,
+and the CNAME was that,
+Bruce Wayne, or I think it was Batman.
+And then it said "see Bruce Wayne".
+So that's exactly how a CNAME works.
+And then given the choice between an alias record
+and a CNAME in an exam scenario
+I would always choose alias.
+Most of the time Amazon are going to be asking things like,
+your naked domain name.
+You need to map your naked domain name
+or your zone apex record to an S3 bucket.
+What should you be using a CNAME or an alias record?
+Well, you want to be using an alias record.
+We're going to see how to do that
+in the serverless section of the course.
+So some common DNS types -
+we've got our Start of Authority record,
+our NS records, our A records, our CNAMEs,
+our MX records, and our PTR records.
+And the following routing policies
+are available with Route 53.
+So we started off with simple routing,
+we then looked at weighted routing,
+latency-based routing, failover routing,
+geolocation routing, geoproximity routing,
+but we had to do that using the traffic flow,
+and then multivalue answer routing.
+We also learned all about health checks,
+so you can set health checks on individual record sets.
+If a record set fails a health check
+it's going to be removed
+from Route 53 until it passes the health check again.
+And you can set up SNS notifications to alert you
+if a health check has failed.
+So simple routing, if you choose simple routing policy,
+you can only have one record with multiple IP addresses,
+and you can't have any health checks.
+If you specify multiple values in a record set,
+Route 53 will return the values to the users
+in a random order
+So here's our user, they are typing in a DNS address,
+Route 53 is giving them the first record,
+and then it's giving them the second record,
+but we can't have a health check on that one.
+Weighted routing policies,
+we've got our user, they're typing in a DNS address,
+and we're setting weights,
+so we're sending 20% of the traffic to US-EAST-1,
+and 80% of the traffic to US-WEST-1.
+So that's how weighted-routing traffic works.
+Latency-based routing is based on
+our user's location and the latency.
+So our South African user's going to visit our website,
+it's behind Route 53 and essentially
+they're going to get 54 milliseconds if they use US-WEST-2,
+300 milliseconds if they use AP-SOUTHEAST-2.
+So, of course Route 53 is going to send them
+to the fastest fleet of EC2 instances
+first, which is going to be EU-WEST-2.
+Failover routing, this is where
+we starting using our health checks.
+So essentially we've got an active/passive environment.
+Our active environment could be US-WEST-2,
+and our passive environment could be AP-SOUTHEAST-2.
+If for some reason our EC2 instances
+or a region goes down,
+it's going to detect this using a health check
+and it's going to failover to our passive environment.
+Geolocation routing allows our European customers
+to be sent to our European servers,
+and it allows our US customers to be sent to our US servers.
+It doesn't have anything to do about latency,
+it actually physically knows where our customers are,
+and then it makes routine decisions based on that,
+that we configure.
+So that's how geolocation routing works.
+Geoproximity routing, as you saw,
+we could start going down the rabbit hole.
+This is an advanced networking specialty topic.
+It is not something that comes up in the Solutions Architect
+Associate exam or even in the professional exam.
+But it allows you to create, you know,
+route traffic to your resources
+based on the geographical location of your users
+as well as your resources.
+And to use geoproximity routing,
+you must be using Route 53 traffic flow.
+And then finally we have our multivalue answer policy.
+And essentially this is the same, as simple-based routing,
+except you get health checks.
+So you can have multiple values within your record sets.
+So we've got our record set in here.
+And we got our first and our second.
+And if one fails a health check,
+what's going to happen?
+Well, it's going to remove that from the record set,
+or it's going to stop serving that record
+until it passes the health check.
+So that is it for this section of the course,
+you've done very, very well.
+The next section we're going to learn all about VPCs,
+and that is crucial to passing your
+Certified Solutions Architect Associate exam,
+and it is actually an awful lot of fun.
+So if you've got the time,
+please join me in the next lecture, thank you.

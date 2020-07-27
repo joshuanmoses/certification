@@ -1,0 +1,475 @@
+Okay, hello Cloud Gurus,
+and welcome to the EC2 summary.
+So congratulations, you're at the end of another section
+of the course, hopefully you've learned an awful lot.
+The first thing we learned about was what EC2 is,
+it's basically just a resizable compute capacity
+in the cloud, or it's a way of provisioning virtual machines
+in the cloud.
+And it reduces the time required to obtain
+and boot new servers instances to minutes
+rather than hours or days or weeks or months depending
+on where you work.
+And it allows you to quickly scale capacity both up
+and down as your computing requirements change.
+So we have four different pricing models for EC2.
+We've got on demand and this is where you pay a fixed rate
+by the hour or by the second with no long term commitments.
+We then have reserved.
+This is way you have a capacity reservation,
+contract terms of one years, or three years.
+The more you pay up front and the longer the contract term,
+the more discounts you get.
+We then have spot.
+This enables you to bid whatever price you want.
+For instance, capacity and basically moves around
+like the stock market.
+And we then have dedicated host
+and this is physical EC2 servers that are dedicated for you.
+And this can be useful where you've got
+existing server- bound software licenses
+or perhaps regulations saying that
+you cannot use multi-tenant virtualization.
+Do remember going into your exam
+that if a spot instance is terminated by EC2
+because the price has changed,
+you're not gonna be charged for that partial hour of usage.
+However, if you terminate the instance yourself,
+you are gonna be charged for any hour
+in which the instance ran.
+We then looked at our different EC2 instance types
+and we came up with the pneumonic FIGHT DR MCPXZAU,
+so in Austin, or in Australia, depending on what you want.
+So there's DR MCPXZ, she's clearly a pixie
+'cause she's got wings.
+She's clearly Scottish 'cause she's wearing tartan.
+She wants to fight.
+You can see there's a stethoscope around her
+so fight FIGHT DR MCPXZ.
+And like I said earlier,
+you don't really need to understand
+every single EC2 instance type going into this exam.
+Where it does become more useful
+is if you go on to do the professional level exams,
+they will test you as to whether or not
+it's a valid instance type or not.
+Moving on to EBS,
+we learned that EBS is basically a virtual hard disk drive
+in the cloud.
+Just remember that termination protection
+is turned off by default, so you must turn it on.
+So if you do wanna go ahead
+and protect your EC2 instances
+from being accidentally deleted by your developers
+or system administrators,
+make sure that termination protection is turned on.
+On an EBS-backed instance,
+the default action is for the route EBS volume
+to be deleted when the instance is terminated.
+So if you do go in and terminate your EC2 instances,
+you are going to delete that
+root device volume automatically.
+But if you add additional attach volumes
+to that EC2 instance,
+those additionally attach volumes
+won't be deleted automatically, unless you go in
+and check that checkbox.
+Also remember that EBS route volumes
+of your default AMI's can be encrypted.
+You can also use third party tools
+such as BitLocker for Windows for example
+to encrypt the root device volume.
+It can also be done when creating AMI's,
+so we will cover that off in a few more slides.
+Just remember the lab that we didn't on it.
+And you can also do it through the AWS console
+or using the API.
+And also remember that additional volumes
+can also be encrypted.
+Moving on to security groups,
+all inbound traffic is always blocked by default,
+all outbound traffic is allowed.
+Changes to security groups take effect immediately,
+so as soon as you open up port 80
+that effect takes effect immediately.
+And then you can also have any number of EC2 instances
+within a security group.
+And you can have multiple security groups
+attached to EC2 instances,
+and we did that when we went into the EFS lab.
+We attached our default security group
+as well as our web DMZ security group as well.
+Moving on to again, staying on security groups,
+so security groups are stateful.
+That means that when you open up a port,
+so if you open up port 80,
+it's going to be open for both inbound
+and outbound traffic.
+Network ACLs are stateless.
+When you go and do a network ACL,
+you're gonna have to open up port 80
+both inbound and then also outbound.
+So we're gonna cover that off in the VPC
+section of the course.
+If you create an inbound rule allowing traffic in,
+that traffic is automatically allowed back out again,
+and you cannot block specific IP addresses
+using security groups.
+Instead, you're going to be using
+network access control list,
+and again, we will see that
+in the VPC section of the course.
+And you can always specify allow roles with security group
+but not deny roles.
+Then we looked at EBS.
+These are the different EBS types.
+We've got general purpose, SSD or GP2,
+we've got provisioned IOPS SSD which is io1.
+So those there are two different flavors of SSD.
+And essentially, if you want your IOPS to go above 16,000,
+you want to move from general purpose
+over to provision IOPS.
+We then have hard disk drives.
+So we've got three different types.
+We've got throughput optimized hard disk drives, or st1.
+We've got cold hard disk drives, or sc1,
+and then we've got EBS magnetic,
+and this is sometimes referred to just as standard
+as its API name.
+And that's typically is previous generation,
+so you might not see that in the exam.
+With the throughput optimized and cold hard disk drive,
+basically, if you need to optimize throughput,
+choose throughput optimize.
+If you just want the lowest cost storage available,
+use cold hard disk drive.
+So staying on EBS, volumes exist on EBS,
+so just think of EBS as a virtual hard disk drive
+in the cloud.
+Snapshots exist on S3
+and I want you to think of snapshots as a photograph
+of the disk.
+And snapshots are actually point
+in time copies of the volumes.
+And snapshots are incremental,
+so this means that only the blocks that have changed
+since your last snapshot are moved to S3.
+And if you take a snapshot for the first time,
+it may take some time to create,
+that's 'cause it's doing its very first one.
+If you take a second snapshot
+is only going to replicate the Delta,
+so it's only gonna replicate the changes.
+To create a snapshot for Amazon's EBS volumes
+that serve as root device volumes,
+you should always try and stop the instance
+before taking the snapshot
+and that will give you a consistent snapshot.
+But that is optional.
+You can take snapshots on running instances as well.
+And you can create AMI's from both volumes and snapshots.
+And you can actually change EBS volume sizes on the fly,
+including changing the size and the storage type.
+And volumes will always be in the same availability zone
+as the EC2 instance.
+You cannot have an EC2 instance in one availability zone
+and then an EBS volume in another.
+Bear that in mind as well.
+In terms of migrating EBS.
+So to move an EC2 volume
+from one availability zone to another,
+you just take a snapshot of it.
+You then create an AMI from the snapshot,
+and then you use the AMI to launch that EC2 instance
+in a new availability zone.
+And likewise, if you wanna move EC2 volumes
+from one region to another,
+take a snapshot of it,
+create an AMI from the snapshot
+and then copy the AMI from one region to another.
+And then you use the copied AMI
+to launch the new EC2 instance in the new region.
+Encryptions, snapshots of encrypted volumes
+are encrypted automatically.
+Volumes restored from encrypted snapshots
+are encrypted automatically as well.
+And you can share snapshots,
+but only if they are unencrypted.
+And you can share snapshots with other AWS accounts
+or you can actually make them public as well.
+Moving on to unencrypted root device volumes.
+So root device volumes can now be encrypted
+when you provision your EC2 instance,
+you don't need to worry about it.
+But if you do have an unencrypted root device volume
+that needs to be encrypted, you need to do the following.
+So you go ahead and create a snap
+of the unencrypted root device volume.
+You then create a copy of the snapshot
+and then select the encrypt option.
+And then you create an AMI from the encrypted snapshot.
+And then you use that AMI to launch the encrypted instances.
+So just like we did in the lab earlier on.
+EBS versus instance store.
+So instance store volumes
+are sometimes referred to as ephemeral storage.
+Instant store volumes cannot be stopped.
+If the underlying host or hypervisor fails,
+you're gonna lose your data.
+And EBS backed instances can be stopped however,
+and you won't lose the data
+on this instance if it's stopped,
+and you can reboot both and not lose your data.
+And by default, both route volumes will be deleted
+on termination however, with EBS volumes,
+you can actually tell AWS to keep the root device volume
+from being deleted.
+So you can basically stop it
+from automatically being deleted.
+In terms of the encrypting root device volumes.
+How do we do it?
+Well, we created a snapshot
+of the unencrypted root device volume.
+We then created a copy of the snapshot.
+And when we did that, we selected the encrypt option.
+We then created an AMI from the encrypted snapshot.
+And then we use that AMI to launch
+the new encrypted instances.
+So that's how we basically encrypt our root device volumes
+using the AWS console.
+Don't forget, you can also do it using
+just software like BitLocker, et cetera, et cetera.
+So moving away from storage and moving
+on to networking with EC2.
+So we looked at three different types of networking.
+You started off with our ENI,
+our elastic network interface.
+This comes with every EC2 instance,
+it's basically a virtual network card.
+I'll use this for basic networking.
+And perhaps you need to separate a management network
+from your production network
+or have a separate logging network
+and you need to do this at low cost.
+In this scenario, you go ahead
+and use multiple elastic network interfaces
+for each network.
+We then looked at enhanced networking,
+and there was a couple of different options here.
+But for when you need speeds between 10 gigabits per second
+and a hundred gigabits per second,
+you're going to use enhanced networking.
+And this typically will be
+an enhanced network adapter or ENA.
+And it's used, like I said,
+for anywhere you need a high and reliable throughput.
+And then EFA is elastic fabric adapter.
+And this is for when you need to accelerate
+high-performance computing and machine learning applications
+or if you need to do an OS by-pass.
+So if you see a scenario question mentioning HPC or ML,
+or an OS by-pass and asking what network adapter
+you want to use,
+you're going to choose an elastic fabric adapter.
+So you are going to probably
+get four or five different questions on networking
+and asking which adapter you should use.
+ENI for basic networking
+and enhance network adapter or ENA if you need speeds
+between 10 gigabits per second 100 gigabits per second.
+And then if you're doing super high performance computing,
+machine learning or you need an OS by-pass,
+go ahead and have a look at your elastic fabric adapter.
+Moving on to CloudWatch.
+Remember that CloudWatch
+is used for monitoring performance.
+CloudWatch can monitor most of AWS,
+as well as your applications that run on AWS.
+CloudWatch with EC2 will monitor events
+every five minutes by default.
+However, you can have one minute intervals by turning
+on detailed monitoring.
+And you can create CloudWatch alarms,
+which then go ahead and trigger notifications.
+And CloudWatch is all about performance.
+CloudTrail is all about auditing.
+We're gonna have another slide of that coming up.
+So what can you do with CloudWatch?
+Well, you can create dashboards,
+and this will allow you to see what's happening
+within your AWS environment all around the world.
+In create alarms.
+And this allows you to set alarms that notify you
+when a particular threshold is hit
+like 80% or 90% CPU utilization.
+We can monitor events.
+So CloudWatch events helps us to respond to state changes
+in our AWS resources.
+And you can also use CloudWatch logs
+to help you aggregate, monitor and store your login data.
+And like I said, CloudTrail versus CloudWatch,
+CloudWatch monitors performance.
+So think of someone at the gym,
+CloudTrail monitors API calls in the AWS platform.
+So CloudTrail will tell you who provisioned
+an EC2 instance, or who set up
+an S3 bucket et cetera, et cetera.
+We then learned about the command line
+so you can interact with AWS from anywhere
+in the world using the CLI.
+You are gonna need to set up access in IAM.
+This gives you an access key ID and secret access key.
+The commands themselves are not in the exams,
+but some basic commands will be useful to know
+for real life.
+We then looked at roles 'cause we looked
+on our EC2 instance, what happens if somebody goes
+into our secret directory, our .AWS directory,
+which is in our home directory,
+and then opens up our configuration details
+so we're able to get our access key ID
+and secret access key.
+So roles are much more secure way
+than storing your access key ID and secret access key
+on an individual EC2 instances.
+Roles are much easier to manage.
+And roles can be assigned to an EC2 instance
+after it's been created using both the console
+and the command line.
+And roles are universal, you can use them in any region
+in the world.
+We then went on to bootstrap scripts.
+Bootstrap scripts run when an EC2 instance first boots
+and can be powerful way of automating
+software installs and updates.
+So we've used it a little bit in this course so far.
+We're gonna use it a lot.
+Certainly in the next section,
+we're gonna create a bootstrap script
+that installs WordPress,
+and we're gonna use that to connect to our RDS instances.
+So bootstrap scripts are incredibly useful as well.
+We then learned about instance metadata and user data.
+So it's used to get information about an incident
+such as a public IP,
+and to do it, you just run a curl
+and then 169.254.169.254/latest/meta-data.
+If you wanna get your user data,
+your user data is literally your bootstrap script
+that is passed to your EC2 instance, when it first boots up.
+And again, you just run
+a curl 169.254.169.254/latest/ and then user-data.
+Moving on to EFS, that was the very last lab.
+So we learned that it supports the Network File System
+version four or NFSv4 protocol.
+You only pay for the storage that you use,
+you don't need to pre-provision
+so you don't need to go in
+and spin up an eight gig instance or something like that.
+It basically grows as you put more files on it,
+and can scale all the way up to petabytes,
+and it can support thousands of concurrent NFS connections.
+Remember, if you need shared storage,
+you can't share ABS with multiple EC2 instances,
+doesn't work like that,
+but you can create an EFS mount
+and then you can store your files in there
+and multiple EC2 instances will be able to access it.
+And with EFS, data is stored
+across multiple availability zones within a region.
+And in terms of the consistency model,
+you get read after write consistency.
+So in the exam, you're going to be given different scenarios
+and you're going to be asked to choose
+the best storage mechanism for the different scenarios.
+So EFS, you'd use it when you need
+distributed to highly resilient storage
+for Amazon Linux instances, and Linux-based applications.
+Amazon FSx for Windows,
+you'd use when you need centralized storage
+for Windows-based applications such as SharePoint,
+Microsoft SQL Server, Workspaces, IIS web server,
+or any other native Microsoft application,
+and especially look for the term SMB.
+If it says you need SMB storage,
+then you're gonna want Amazon FSx for Windows.
+And then Amazon FSx for Lustre
+is when you're doing high-speed,
+high-capacity distributed storage.
+And this is gonna be for applications
+that do high-performance compute,
+financial modeling, et cetera.
+And remember that FSx for Lustre
+can store data directly on S3.
+Moving on to EC2 placement groups.
+Placement group is simply how you place your EC2 instances.
+There's three different types of placement groups.
+The first one is a clustered placement group,
+we then have spread placement groups,
+followed by partition placement groups.
+A clustered placement group is where you want
+low network latency, high network throughput.
+This will be where all your EC2 instances are
+in the same availability zone
+and as close together as possible,
+so that you don't have any sort of latency.
+Spread placement group,
+these are for individual critical EC2 instances.
+So you wanna make sure that they are basically
+in different availability zones
+and different pieces of hardware.
+So if a rack does fail,
+it's only gonna affect the one EC2 instance.
+It's not gonna take two or three out at a time.
+And partitioned placement groups are effectively
+for multiple EC2 instances.
+So this will be for things like HDFS, HBase,
+and Cassandra clusters
+and this is where you have multiple EC2 instances
+into a partition,
+and each partition is always going to be
+on separate hardware or separate racks
+from the other partitions.
+So those are the three different types of placement groups.
+Just remember the clustered placement group
+doesn't span multiple availability zones,
+whereas a spread placement
+and partitioned placement group can span availability zones.
+Remember that the name that you specify
+for a placement group must be unique
+within your own AWS account.
+Only certain types of instances can be launched
+into placement groups.
+So these will be things like compute optimized, GPU,
+memory optimized, storage optimized, et cetera.
+And then also remember that AWS recommend
+homogenous instances within the clustered placement groups.
+So this is where you have the same instance type.
+You can't merge placement groups
+and you can't move any existing instance
+into a placement group.
+What you can do though,
+is create an AMI from your existing instance
+and then launch the new instance from the AMI
+into a placement group.
+And then just moving on to web application firewalls.
+In the exam, you're gonna be given different scenarios,
+and you'll be asked how to do things
+like block malicious IP addresses.
+Well, to do that, you need to use AWS WAF,
+you can also use network ACLs;
+we're gonna cover this in a lot more detail
+in the VPC section of the course.
+And you can also use WAF to do things
+like block specific countries,
+you can look for query string parameters.
+You can also use WAF to block things
+like cross-site scripting and SQL injections as well.
+Well, congratulations, you've just finished up section four.
+This is definitely one of the more challenging
+sections of the course.
+I hope you had lots of fun.
+And the next section,
+we're gonna go ahead and have a look at databases.
+So if you've got the time, please join me
+in the next section, thank you.
